@@ -1,32 +1,46 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This is a simple task management application developed in Kotlin,
+designed to help users manage their to-do lists.
 
-{Provide a description of the software that you wrote to demonstrate the Kotlin language.}
+This project marks my initial steps in learning Kotlin, serving as
+a hands-on way to practice and strengthen my skills with the 
+language. In creating this project, I aimed to gain practical 
+experience in writing Kotlin code while exploring the language's 
+features and syntax.
 
-{Describe your purpose for writing this software.}
+This application allows users to:
+* Add, remove, and update the completion status of tasks.
+* Save their task list to a file.
+* Load their task list from a saved file to continue managing
+tasks at any time.
 
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
+This project helped me become familiar with Kotlin's handling of 
+collections, file operations, and user input.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/WyniQ7zm7pk)
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+I developed this application using IntelliJ IDEA Community Edition,
+an IDE specifically designed for Kotlin and Java development. 
+Additionally, I used the Oracle JDK (Java Development Kit) to run
+and compile the Kotlin code.
 
-{Describe the programming language that you used and any libraries.}
+In this project, I did not utilize any external libraries. I used
+Kotlin's built-in capabilities for handling collections, file I/O
+operations, and user-input.
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Kotlin Crash Course](https://www.youtube.com/watch?v=5flXf8nuq60&t=2782s)
+- [Learn Kotlin Programming](https://www.programiz.com/kotlin-programming)
+- [ChatGPT](https://chatgpt.com/)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
-- Item 3
+- Refactor code to utilize classes.
+- Add more attributes to tasks such as due dates, descriptions, 
+  etc.
+- Create a notification system to send reminders or alert users of
+  upcoming tasks.
