@@ -1,11 +1,17 @@
 import java.io.File
 
+/**
+ * Entry point for the Task Buddy application.
+ * This function handles the main application loop, allowing users to interact with tasks.
+ */
 fun main() {
 
     println("\nWelcome to Task Buddy!\n")
 
+    // List to store tasks
     val tasks = mutableListOf<String>()
 
+    // Main loop for the application
     while (true) {
         displayMenu()
 
@@ -25,6 +31,9 @@ fun main() {
     }
 }
 
+/**
+ * Displays the main menu to the user, listing available options.
+ */
 fun displayMenu() {
     println("Menu:")
     println(" 1. View Tasks")
@@ -37,6 +46,11 @@ fun displayMenu() {
     println("Please enter your choice: ")
 }
 
+/**
+ * Displays the current list of tasks.
+ *
+ * @param tasks The list of tasks to be viewed.
+ */
 fun viewTasks(tasks: List<String>) {
     if (tasks.isEmpty()) {
         println("\nThere are no tasks in your task list. Please add or load tasks.\n")
@@ -49,6 +63,11 @@ fun viewTasks(tasks: List<String>) {
     }
 }
 
+/**
+ * Allows the user to add a new task to the list.
+ *
+ * @param tasks The mutable list to which the new task will be added.
+ */
 fun addTask(tasks: MutableList<String>) {
     println("\nEnter new task: ")
     val newTask = readlnOrNull()
@@ -56,11 +75,18 @@ fun addTask(tasks: MutableList<String>) {
     if (newTask.isNullOrBlank()) {
         println("Task can't be empty.\n")
     } else {
+        // Adds a new task with default status (not completed)
         tasks.add("$newTask | |")
         println("\nThe new task was successfully added.\n")
     }
 }
 
+/**
+ * Allows the user to remove a task from the list.
+ * If there are no tasks, a message will be displayed and the function returns early.
+ *
+ * @param tasks The mutable list of tasks.
+ */
 fun removeTask(tasks: MutableList<String>) {
     if (tasks.isEmpty()) {
         println("\nThere are no tasks to remove. Please add or load tasks.\n")
@@ -79,6 +105,12 @@ fun removeTask(tasks: MutableList<String>) {
     }
 }
 
+/**
+ * Marks a task as completed or uncompleted.
+ * If there are no tasks, a message will be displayed and the function returns early.
+ *
+ * @param tasks The mutable list of tasks.
+ */
 fun completeTask(tasks: MutableList<String>) {
     if (tasks.isEmpty()) {
         println("\nThere are no tasks to complete. Please add or load tasks.\n")
@@ -94,7 +126,7 @@ fun completeTask(tasks: MutableList<String>) {
         val parts = tasks[taskIndex].split(" | ")
         if (parts.size == 2) {
             val taskText = parts[0]
-            val newStatus = if (parts[1] == "X") " " else "X"
+            val newStatus = if (parts[1] == "X") " " else "X" // Toggles completion status
             tasks[taskIndex] = "$taskText |$newStatus|"
             println("\nCongratulations! You completed task number $taskToComplete.\n")
         } else {
@@ -105,7 +137,13 @@ fun completeTask(tasks: MutableList<String>) {
     }
 }
 
-fun saveTasks(tasks: List<String>){
+/**
+ * Saves the current tasks to a file specified by the user.
+ * If there are no tasks, a message will be displayed indicating that there is nothing to save.
+ *
+ * @param tasks The list of tasks to be saved.
+ */
+fun saveTasks(tasks: List<String>) {
     if (tasks.isEmpty()) {
         println("\nThere are no tasks to be saved. Please add or load tasks.\n")
     } else {
@@ -113,7 +151,7 @@ fun saveTasks(tasks: List<String>){
         val fileName = readln()
 
         try {
-            File(fileName).writeText(tasks.joinToString("\n"))
+            File(fileName).writeText(tasks.joinToString("\n")) // Saves tasks to a file
             println("\nTasks were successfully saved in $fileName\n")
         } catch (e: Exception) {
             println("\nAn error occurred while saving tasks: ${e.message}\n")
@@ -121,13 +159,19 @@ fun saveTasks(tasks: List<String>){
     }
 }
 
+/**
+ * Loads tasks from a file specified by the user.
+ *
+ * @param tasks The mutable list of tasks to load into.
+ * @return True if tasks were successfully loaded, otherwise false.
+ */
 fun loadTasks(tasks: MutableList<String>): Boolean {
     print("\nEnter the file name where your tasks are saved: ")
     val fileName = readLine() ?: return false
 
     return try {
-        val loadedTasks = File(fileName).readLines()
-        tasks.clear()
+        val loadedTasks = File(fileName).readLines() // Reads tasks from the file
+        tasks.clear() // Clears existing tasks before loading new ones
         tasks.addAll(loadedTasks)
         println("\nTasks from $fileName successfully loaded.\n")
         true
