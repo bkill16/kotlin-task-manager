@@ -13,13 +13,14 @@ fun main() {
             "1" -> viewTasks(tasks)
             "2" -> addTask(tasks)
             "3" -> removeTask(tasks)
-            "4" -> saveTasks(tasks)
-            "5" -> loadTasks(tasks)
-            "6" -> {
+            "4" -> completeTask(tasks)
+            "5" -> saveTasks(tasks)
+            "6" -> loadTasks(tasks)
+            "7" -> {
                 println("\nThank you for using Task Buddy. Goodbye!")
                 break
             }
-            else -> println("Invalid input. Please try again.\n")
+            else -> println("\nInvalid input. Please try again.\n")
         }
     }
 }
@@ -29,9 +30,10 @@ fun displayMenu() {
     println(" 1. View Tasks")
     println(" 2. Add Task")
     println(" 3. Remove Task")
-    println(" 4. Save Tasks")
-    println(" 5. Load Tasks")
-    println(" 6. Quit")
+    println(" 4. Complete Task")
+    println(" 5. Save Tasks")
+    println(" 6. Load Tasks")
+    println(" 7. Quit")
     println("Please enter your choice: ")
 }
 
@@ -54,14 +56,18 @@ fun addTask(tasks: MutableList<String>) {
     if (newTask.isNullOrBlank()) {
         println("Task can't be empty.\n")
     } else {
-        tasks.add(newTask)
+        tasks.add("$newTask | |")
         println("\nThe new task was successfully added.\n")
     }
 }
 
 fun removeTask(tasks: MutableList<String>) {
-    viewTasks(tasks)
+    if (tasks.isEmpty()) {
+        println("\nThere are no tasks to remove. Please add or load tasks.\n")
+        return
+    }
 
+    viewTasks(tasks)
     println("Enter the number of the task you'd like to remove: ")
     val taskToRemove = readLine()?.toIntOrNull()
 
@@ -73,9 +79,35 @@ fun removeTask(tasks: MutableList<String>) {
     }
 }
 
+fun completeTask(tasks: MutableList<String>) {
+    if (tasks.isEmpty()) {
+        println("\nThere are no tasks to complete. Please add or load tasks.\n")
+        return
+    }
+
+    viewTasks(tasks)
+    println("Enter the number of the task you'd like to mark as complete: ")
+    val taskToComplete = readLine()?.toIntOrNull()
+
+    if (taskToComplete != null && taskToComplete in 1..tasks.size) {
+        val taskIndex = taskToComplete - 1
+        val parts = tasks[taskIndex].split(" | ")
+        if (parts.size == 2) {
+            val taskText = parts[0]
+            val newStatus = if (parts[1] == "X") " " else "X"
+            tasks[taskIndex] = "$taskText |$newStatus|"
+            println("\nCongratulations! You completed task number $taskToComplete.\n")
+        } else {
+            println("\nError: Task format is incorrect.\n")
+        }
+    } else {
+        println("\nInvalid task number.\n")
+    }
+}
+
 fun saveTasks(tasks: List<String>){
     if (tasks.isEmpty()) {
-        println("\nThere are no tasks to be saved.\n")
+        println("\nThere are no tasks to be saved. Please add or load tasks.\n")
     } else {
         println("\nEnter the name of the file you want the tasks to be saved to: ")
         val fileName = readln()
